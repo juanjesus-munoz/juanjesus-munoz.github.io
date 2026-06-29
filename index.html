@@ -94,6 +94,28 @@
       min-height: 100vh;
     }
 
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 3px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 640px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-photo { width: 120px; height: 120px; }
+    }
+
     .hero-eyebrow {
       font-family: var(--mono);
       font-size: 13px;
@@ -421,20 +443,25 @@
 
   <!-- HERO -->
   <section id="hero">
-    <p class="hero-eyebrow">// ingeniero aeroespacial</p>
-    <h1 class="hero-name">Juan Jesús<br>Muñoz Aguilera</h1>
-    <p class="hero-title">CAMO · CFD · Simulación de alto orden</p>
-    <p class="hero-desc">
-      Combino rigor normativo aeroespacial (EASA) con precisión técnica en modelado numérico.
-      Apasionado por la optimización aerodinámica y las soluciones CFD de alta fidelidad.
-    </p>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
-      <a class="btn btn-secondary" href="#contacto">Contactar</a>
-    </div>
-    <div class="scroll-hint">
-      <div class="scroll-dot"></div>
-      Basado en Palma del Río, Córdoba
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow">// ingeniero aeroespacial</p>
+        <h1 class="hero-name">Juan Jesús<br>Muñoz Aguilera</h1>
+        <p class="hero-title">CAMO · CFD · Simulación de alto orden</p>
+        <p class="hero-desc">
+          Combino rigor normativo aeroespacial (EASA) con precisión técnica en modelado numérico.
+          Apasionado por la optimización aerodinámica y las soluciones CFD de alta fidelidad.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
+          <a class="btn btn-secondary" href="#contacto">Contactar</a>
+        </div>
+        <div class="scroll-hint">
+          <div class="scroll-dot"></div>
+          Basado en Palma del Río, Córdoba
+        </div>
+      </div>
+      <img class="hero-photo" src="Mi_foto.jpg" alt="Juan Jesús Muñoz Aguilera" />
     </div>
   </section>
 
@@ -537,7 +564,7 @@
     <p class="section-label">03 — proyectos</p>
     <h2 class="section-title">Proyectos destacados</h2>
 
-    <a class="project-card" href="https://github.com/juanjesus-munoz/TFG-Aeroacustica-PyFR" target="_blank" rel="noopener">
+    <a class="project-card" href="tfg.html">
       <div class="project-header">
         <span class="project-title">Simulación aeroacústica de alta fidelidad con CFD</span>
         <span class="project-badge">TFG</span>
