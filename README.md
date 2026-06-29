@@ -1,9 +1,8 @@
-# Personal Portfolio Website
+# 🚀 Portfolio Web | Juan Jesús Muñoz Aguilera
 
-This repository contains the source code for my personal portfolio website, hosted with GitHub Pages.
+Bienvenido al código fuente de mi página web personal y portfolio profesional. Este sitio está diseñado para mostrar mi perfil como Ingeniero Aeroespacial, mis habilidades técnicas (Stack) y mis proyectos más destacados, especialmente aquellos enfocados en Aerodinámica Computacional (CFD) y Gestión de Aeronavegabilidad.
 
-🌐 Website:
-https://juanjesus-munoz.github.io
+🌐 Visita la web en vivo: juanjesus-munoz.github.io
 
 ## About
 
