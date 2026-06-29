@@ -1,3 +1,4 @@
+cat > /mnt/user-data/outputs/tfg.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,7 +21,7 @@
       --mono: 'JetBrains Mono', monospace;
       --sans: 'Inter', system-ui, sans-serif;
       --radius: 10px;
-      --nav-h: 64px;
+      --nav-h: 60px;
     }
 
     html { scroll-behavior: smooth; }
@@ -29,348 +30,219 @@
       font-family: var(--sans);
       background: var(--bg);
       color: var(--text-primary);
-      font-size: 16px;
-      line-height: 1.65;
+      font-size: 15px;
+      line-height: 1.6;
     }
 
-    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       height: var(--nav-h);
-      background: rgba(249,249,247,0.88);
+      background: rgba(249,249,247,0.9);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      padding: 0 clamp(1.25rem, 5vw, 5rem);
     }
 
-    .nav-logo {
-      font-family: var(--mono);
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-primary);
-      letter-spacing: -0.02em;
-      text-decoration: none;
-    }
-
+    .nav-logo { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--text-primary); text-decoration: none; }
     .nav-logo span { color: var(--accent); }
-
-    .nav-back {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 14px;
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
+    .nav-back { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
     .nav-back:hover { color: var(--text-primary); }
 
-    /* LAYOUT */
-    .page {
+    .wrap {
       max-width: 860px;
       margin: 0 auto;
-      padding: calc(var(--nav-h) + 4rem) clamp(1.5rem, 5vw, 4rem) 6rem;
+      padding: calc(var(--nav-h) + 2.5rem) clamp(1.25rem, 5vw, 3rem) 5rem;
     }
 
     /* BREADCRUMB */
     .breadcrumb {
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
     }
-
-    .breadcrumb a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
 
-    /* HEADER DEL PROYECTO */
+    /* HEADER */
     .project-eyebrow {
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 11px;
       color: var(--accent);
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.6rem;
     }
 
     .project-title {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
       font-weight: 600;
       letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 1.25rem;
+      line-height: 1.12;
+      margin-bottom: 0.85rem;
     }
 
     .project-subtitle {
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: var(--text-secondary);
       font-weight: 300;
-      margin-bottom: 2rem;
-      max-width: 600px;
+      max-width: 580px;
       line-height: 1.7;
+      margin-bottom: 1.5rem;
     }
 
-    /* METADATOS */
+    /* META BAR */
     .meta-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.5rem;
-      padding: 1.25rem 0;
+      gap: 1.25rem 2rem;
+      padding: 1rem 0;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
     }
 
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .meta-item { display: flex; flex-direction: column; gap: 2px; }
+    .meta-label { font-family: var(--mono); font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .meta-value { font-size: 13px; font-weight: 500; }
+    .meta-badge { display: inline-block; padding: 2px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; background: #e8f5e9; color: #2e7d32; }
 
-    .meta-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .meta-value {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-
-    .meta-badge {
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 500;
-      background: #e8f5e9;
-      color: #2e7d32;
-    }
-
-    /* CONTENT */
-    .section-title {
-      font-size: 1.15rem;
+    /* BODY CONTENT */
+    h2 {
+      font-size: 1.05rem;
       font-weight: 600;
       letter-spacing: -0.02em;
-      margin: 2.5rem 0 1rem;
+      margin: 2rem 0 0.75rem;
     }
 
-    .section-title:first-of-type { margin-top: 0; }
+    h2:first-of-type { margin-top: 0; }
 
     p {
       color: var(--text-secondary);
+      font-size: 14px;
       line-height: 1.8;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
-    /* CARDS DE CONTENIDO */
+    hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+    /* INFO GRID */
     .info-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin: 1.5rem 0;
+      gap: 0.6rem;
+      margin: 1rem 0 1.5rem;
     }
 
     .info-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.25rem;
+      padding: 1rem;
     }
 
     .info-card-label {
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10px;
       color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.5rem;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.4rem;
     }
 
-    .info-card-text {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
+    .info-card-text { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
-    /* ETAPAS / PIPELINE */
-    .pipeline {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin: 1.5rem 0;
-    }
+    /* PIPELINE */
+    .pipeline { display: flex; flex-direction: column; margin: 1rem 0 1.5rem; }
 
     .pipeline-step {
       display: grid;
-      grid-template-columns: 40px 1fr;
-      gap: 1rem;
+      grid-template-columns: 36px 1fr;
+      gap: 0.75rem;
       align-items: start;
     }
 
-    .pipeline-step:not(:last-child) .pipe-line {
-      flex: 1;
-      width: 1px;
-      background: var(--border);
-      margin: 4px auto 0;
-      min-height: 1.5rem;
-    }
-
-    .pipe-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    .pipe-col { display: flex; flex-direction: column; align-items: center; }
 
     .pipe-dot {
-      width: 28px; height: 28px;
+      width: 26px; height: 26px;
       border-radius: 50%;
       background: var(--accent-bg);
       border: 1px solid var(--accent);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 500;
       color: var(--accent);
       flex-shrink: 0;
     }
 
-    .pipe-content {
-      padding: 2px 0 1.75rem;
+    .pipe-line {
+      flex: 1;
+      width: 1px;
+      background: var(--border);
+      margin: 3px auto 0;
+      min-height: 1.25rem;
     }
 
-    .pipe-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 3px;
-    }
-
-    .pipe-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin: 0;
-    }
+    .pipe-content { padding: 2px 0 1.5rem; }
+    .pipe-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+    .pipe-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
 
     /* TAGS */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 1rem 0;
-    }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 0.75rem 0 1.5rem; }
+    .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; background: var(--bg); border: 1px solid var(--border); color: var(--text-secondary); font-family: var(--mono); }
 
-    .tag {
-      font-size: 12px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text-secondary);
-      font-family: var(--mono);
-    }
-
-    /* RESULTADO DESTACADO */
+    /* HIGHLIGHT */
     .highlight-box {
       background: var(--accent-bg);
       border: 1px solid #c5d9fb;
       border-radius: var(--radius);
-      padding: 1.5rem;
-      margin: 1.5rem 0;
+      padding: 1.25rem;
+      margin: 1rem 0 1.5rem;
       display: flex;
-      gap: 1rem;
+      gap: 0.85rem;
       align-items: flex-start;
     }
 
-    .highlight-icon {
-      font-size: 1.5rem;
-      flex-shrink: 0;
-    }
-
-    .highlight-text {
-      font-size: 15px;
-      color: #1a4da8;
-      line-height: 1.7;
-      margin: 0;
-    }
-
+    .highlight-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+    .highlight-text { font-size: 14px; color: #1a4da8; line-height: 1.7; margin: 0; }
     .highlight-text strong { color: #0d3580; }
 
-    /* DIVIDER */
-    hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 2.5rem 0;
-    }
-
-    /* BOTONES */
-    .btn-group {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-top: 2.5rem;
-    }
+    /* BUTTONS */
+    .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 2rem; }
 
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 10px 22px;
+      padding: 9px 20px;
       border-radius: var(--radius);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       text-decoration: none;
       transition: all 0.18s;
     }
 
-    .btn-primary {
-      background: var(--text-primary);
-      color: #fff;
-      border: 1px solid var(--text-primary);
-    }
-
+    .btn-primary { background: var(--text-primary); color: #fff; border: 1px solid var(--text-primary); }
     .btn-primary:hover { background: #333; }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text-primary);
-      border: 1px solid var(--border);
-    }
-
+    .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
     .btn-secondary:hover { border-color: var(--text-secondary); }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 2rem clamp(1.5rem, 5vw, 4rem);
-      font-size: 13px;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border);
-    }
-
+    footer { text-align: center; padding: 1.75rem; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border); }
     footer span { color: var(--accent); }
 
     @media (max-width: 600px) {
       .info-grid { grid-template-columns: 1fr; }
-      .meta-bar { gap: 1rem; }
+      .meta-bar { gap: 0.75rem 1.25rem; }
     }
   </style>
 </head>
@@ -381,7 +253,7 @@
     <a class="nav-back" href="index.html">← Volver al portfolio</a>
   </nav>
 
-  <div class="page">
+  <div class="wrap">
 
     <div class="breadcrumb">
       <a href="index.html">Inicio</a>
@@ -394,16 +266,11 @@
     <p class="project-eyebrow">03 — proyecto destacado · TFG</p>
     <h1 class="project-title">Simulación aeroacústica de<br>alta fidelidad mediante CFD</h1>
     <p class="project-subtitle">
-      Desarrollo y análisis de simulaciones de ruido aerodinámico usando métodos numéricos de alto orden
-      con PyFR sobre geometrías complejas.
+      Simulación de ruido aerodinámico usando métodos numéricos de alto orden con PyFR
+      sobre geometrías complejas, con validación frente a la literatura especializada.
     </p>
 
-    <!-- METADATOS -->
     <div class="meta-bar">
-      <div class="meta-item">
-        <span class="meta-label">Institución</span>
-        <span class="meta-value">Universidad</span>
-      </div>
       <div class="meta-item">
         <span class="meta-label">Área</span>
         <span class="meta-value">Aerodinámica Computacional</span>
@@ -413,45 +280,46 @@
         <span class="meta-value">PyFR</span>
       </div>
       <div class="meta-item">
-        <span class="meta-label">Calificación</span>
+        <span class="meta-label">Estado</span>
         <span class="meta-value"><span class="meta-badge">✓ Completado</span></span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Repositorio</span>
-        <span class="meta-value"><a href="https://github.com/juanjesus-munoz/TFG-Aeroacustica-PyFR" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none; font-size:13px;">GitHub →</a></span>
+        <span class="meta-value">
+          <a href="https://github.com/juanjesus-munoz/TFG-Aeroacustica-PyFR" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none; font-size:13px;">GitHub →</a>
+        </span>
       </div>
     </div>
 
     <!-- MOTIVACIÓN -->
-    <h2 class="section-title">Motivación y contexto</h2>
+    <h2>Motivación y contexto</h2>
     <p>
-      El ruido generado por flujos aerodinámicos representa uno de los principales retos en el diseño
-      de aeronaves modernas, tanto por su impacto ambiental como por las exigencias normativas cada vez
-      más estrictas. La aeroacústica computacional permite predecir y mitigar estas fuentes de ruido
-      desde las primeras fases del diseño, reduciendo costes frente a los ensayos experimentales.
+      El ruido generado por flujos aerodinámicos es uno de los principales retos en diseño de aeronaves modernas,
+      tanto por su impacto ambiental como por las exigencias normativas crecientes. La aeroacústica computacional
+      permite predecir y mitigar estas fuentes de ruido desde las primeras fases del diseño, reduciendo costes
+      frente a ensayos experimentales.
     </p>
     <p>
-      Este trabajo aborda la simulación aeroacústica mediante métodos de alto orden, que ofrecen mayor
-      precisión que los métodos clásicos en la captura de fenómenos de pequeña escala relevantes para
-      la generación de ruido.
+      Este trabajo aborda la simulación aeroacústica mediante métodos de alto orden, que ofrecen mayor precisión
+      que los métodos clásicos en la captura de fenómenos de pequeña escala relevantes para la generación de ruido.
     </p>
 
     <hr />
 
     <!-- OBJETIVOS -->
-    <h2 class="section-title">Objetivos del proyecto</h2>
+    <h2>Objetivos del proyecto</h2>
     <div class="info-grid">
       <div class="info-card">
         <div class="info-card-label">Objetivo principal</div>
-        <div class="info-card-text">Simular la generación y propagación de ruido en flujos aerodinámicos mediante CFD de alta fidelidad con PyFR.</div>
+        <div class="info-card-text">Simular la generación y propagación de ruido en flujos aerodinámicos con CFD de alta fidelidad usando PyFR.</div>
       </div>
       <div class="info-card">
         <div class="info-card-label">Metodología</div>
-        <div class="info-card-text">Métodos de Flujo de Diferencias Finitas de alto orden (FR/CPR) sobre mallas no estructuradas con GPU.</div>
+        <div class="info-card-text">Métodos FR/CPR de alto orden sobre mallas no estructuradas con aceleración GPU.</div>
       </div>
       <div class="info-card">
         <div class="info-card-label">Validación</div>
-        <div class="info-card-text">Comparación de resultados con datos experimentales y soluciones de referencia de la literatura.</div>
+        <div class="info-card-text">Comparación con datos experimentales y soluciones de referencia de la literatura.</div>
       </div>
       <div class="info-card">
         <div class="info-card-label">Postproceso</div>
@@ -461,8 +329,8 @@
 
     <hr />
 
-    <!-- PIPELINE TÉCNICO -->
-    <h2 class="section-title">Pipeline de trabajo</h2>
+    <!-- PIPELINE -->
+    <h2>Pipeline de trabajo</h2>
     <div class="pipeline">
       <div class="pipeline-step">
         <div class="pipe-col">
@@ -470,8 +338,8 @@
           <div class="pipe-line"></div>
         </div>
         <div class="pipe-content">
-          <div class="pipe-title">Generación de malla</div>
-          <p class="pipe-desc">Diseño de la geometría y creación de la malla no estructurada con Pointwise, optimizando la resolución en zonas de interés aeroacústico.</p>
+          <div class="pipe-title">Generación de malla — Pointwise</div>
+          <p class="pipe-desc">Diseño de geometría y malla no estructurada, optimizando la resolución en zonas de interés aeroacústico.</p>
         </div>
       </div>
       <div class="pipeline-step">
@@ -480,8 +348,8 @@
           <div class="pipe-line"></div>
         </div>
         <div class="pipe-content">
-          <div class="pipe-title">Configuración y simulación con PyFR</div>
-          <p class="pipe-desc">Definición de condiciones de contorno, parámetros del solver de alto orden y ejecución de la simulación CFD sobre GPU.</p>
+          <div class="pipe-title">Simulación CFD — PyFR</div>
+          <p class="pipe-desc">Configuración de condiciones de contorno, parámetros del solver de alto orden y ejecución sobre GPU.</p>
         </div>
       </div>
       <div class="pipeline-step">
@@ -490,8 +358,8 @@
           <div class="pipe-line"></div>
         </div>
         <div class="pipe-content">
-          <div class="pipe-title">Extracción y análisis de datos</div>
-          <p class="pipe-desc">Postprocesado de los campos de flujo con Python y NumPy: cálculo de espectros de presión, transformadas de Fourier y análisis estadístico.</p>
+          <div class="pipe-title">Análisis de datos — Python</div>
+          <p class="pipe-desc">Postprocesado de campos de flujo: espectros de presión, transformadas de Fourier y análisis estadístico.</p>
         </div>
       </div>
       <div class="pipeline-step">
@@ -499,16 +367,16 @@
           <div class="pipe-dot">04</div>
         </div>
         <div class="pipe-content">
-          <div class="pipe-title">Visualización con ParaView</div>
-          <p class="pipe-desc">Representación visual de los campos de presión acústica, líneas de corriente y mapas de vorticidad para interpretación de resultados.</p>
+          <div class="pipe-title">Visualización — ParaView</div>
+          <p class="pipe-desc">Representación de campos de presión acústica, líneas de corriente y mapas de vorticidad.</p>
         </div>
       </div>
     </div>
 
     <hr />
 
-    <!-- STACK TÉCNICO -->
-    <h2 class="section-title">Stack técnico</h2>
+    <!-- STACK -->
+    <h2>Stack técnico</h2>
     <div class="tags">
       <span class="tag">PyFR</span>
       <span class="tag">Pointwise</span>
@@ -523,26 +391,20 @@
 
     <hr />
 
-    <!-- RESULTADO DESTACADO -->
-    <h2 class="section-title">Resultado</h2>
+    <!-- RESULTADO -->
+    <h2>Resultado</h2>
     <div class="highlight-box">
       <span class="highlight-icon">🎯</span>
       <p class="highlight-text">
-        El proyecto culminó con la <strong>obtención y validación de simulaciones aeroacústicas de alta fidelidad</strong>
-        mediante métodos FR de alto orden, demostrando la viabilidad del framework PyFR para el análisis
-        de ruido aerodinámico en geometrías complejas. Los resultados se compararon satisfactoriamente
-        con referencias de la literatura especializada.
+        Obtención y validación de <strong>simulaciones aeroacústicas de alta fidelidad</strong> mediante métodos FR
+        de alto orden, demostrando la viabilidad de PyFR para el análisis de ruido aerodinámico en geometrías complejas.
+        Resultados comparados satisfactoriamente con referencias de la literatura especializada.
       </p>
     </div>
 
-    <!-- BOTONES -->
     <div class="btn-group">
-      <a class="btn btn-primary" href="https://github.com/juanjesus-munoz/TFG-Aeroacustica-PyFR" target="_blank" rel="noopener">
-        Ver código en GitHub
-      </a>
-      <a class="btn btn-secondary" href="index.html#proyectos">
-        ← Volver a proyectos
-      </a>
+      <a class="btn btn-primary" href="https://github.com/juanjesus-munoz/TFG-Aeroacustica-PyFR" target="_blank" rel="noopener">Ver código en GitHub</a>
+      <a class="btn btn-secondary" href="index.html#proyectos">← Volver a proyectos</a>
     </div>
 
   </div>
@@ -553,3 +415,5 @@
 
 </body>
 </html>
+HTMLEOF
+echo "OK"
