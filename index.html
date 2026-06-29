@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juan Jesús Muñoz | Ingeniero Aeroespacial</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f9f9f7;
+      --surface: #ffffff;
+      --border: #e8e8e4;
+      --text-primary: #1a1a18;
+      --text-secondary: #5a5a55;
+      --text-muted: #9a9a94;
+      --accent: #1a6cf0;
+      --accent-bg: #eef3fe;
+      --accent-light: #dce8fd;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', system-ui, sans-serif;
+      --radius: 10px;
+      --nav-h: 64px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(249,249,247,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text-primary); }
+
+    /* SECTIONS */
+    section {
+      min-height: 100vh;
+      padding: calc(var(--nav-h) + 4rem) clamp(1.5rem, 5vw, 4rem) 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    section:not(#hero) { padding-top: 6rem; min-height: auto; }
+
+    /* HERO */
+    #hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: var(--nav-h);
+      min-height: 100vh;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-name {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 22px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.18s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--text-primary);
+      color: #fff;
+      border: 1px solid var(--text-primary);
+    }
+
+    .btn-primary:hover { background: #333; border-color: #333; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover { border-color: var(--text-secondary); }
+
+    /* SECTION HEADERS */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 1.9rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      margin-bottom: 2.5rem;
+    }
+
+    /* SOBRE MÍ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem 3rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    .about-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .about-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 500;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+
+    .about-link:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-bg);
+    }
+
+    .about-link-icon {
+      width: 32px; height: 32px;
+      background: var(--accent-bg);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+
+    .about-link span { flex: 1; }
+    .about-link small { color: var(--text-muted); font-weight: 400; font-size: 12px; }
+
+    /* STACK */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .stack-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: border-color 0.18s;
+    }
+
+    .stack-item:hover { border-color: var(--accent); }
+
+    .stack-category {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .stack-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    /* PROYECTOS */
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      text-decoration: none;
+      display: block;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(26,108,240,0.06);
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .project-badge {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: var(--accent-bg);
+      color: var(--accent);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .project-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .project-tag {
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .project-arrow {
+      font-size: 18px;
+      color: var(--accent);
+      opacity: 0;
+      transition: opacity 0.18s, transform 0.18s;
+    }
+
+    .project-card:hover .project-arrow { opacity: 1; transform: translateX(3px); }
+
+    /* CONTACTO */
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    .contact-box p {
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin: 0 auto 2rem;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2.5rem clamp(1.5rem, 5vw, 4rem);
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    footer span { color: var(--accent); }
+
+    /* DIVIDER */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 4rem 0;
+    }
+
+    /* SCROLL INDICATOR */
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4rem;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .scroll-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .contact-links { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#hero">JJ<span>.</span>Muñoz</a>
+    <ul class="nav-links">
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-eyebrow">// ingeniero aeroespacial</p>
+    <h1 class="hero-name">Juan Jesús<br>Muñoz Aguilera</h1>
+    <p class="hero-title">CAMO · CFD · Simulación de alto orden</p>
+    <p class="hero-desc">
+      Combino rigor normativo aeroespacial (EASA) con precisión técnica en modelado numérico.
+      Apasionado por la optimización aerodinámica y las soluciones CFD de alta fidelidad.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
+      <a class="btn btn-secondary" href="#contacto">Contactar</a>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-dot"></div>
+      Basado en Palma del Río, Córdoba
+    </div>
+  </section>
+
+  <div style="max-width:900px; margin:0 auto; padding:0 clamp(1.5rem, 5vw, 4rem)">
+    <hr class="divider" />
+  </div>
+
+  <!-- SOBRE MÍ -->
+  <section id="sobre-mi" style="min-height:auto;">
+    <p class="section-label">01 — sobre mí</p>
+    <h2 class="section-title">Perfil profesional</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Soy Ingeniero Aeroespacial especializado en dos áreas complementarias: la
+          <strong>Gestión de Aeronavegabilidad (CAMO)</strong> bajo normativa EASA y el
+          <strong>modelado numérico mediante CFD</strong>, con énfasis en simulaciones de
+          alto orden y análisis aeroacústico.
+        </p>
+        <p>
+          Mi enfoque combina la rigurosidad técnica y regulatoria del sector aeronáutico con
+          el desarrollo de herramientas computacionales propias, buscando siempre soluciones
+          precisas y reproducibles.
+        </p>
+        <p>
+          Actualmente orientado a proyectos de optimización aerodinámica, mantenimiento
+          avanzado y simulación de fluidos de alta fidelidad.
+        </p>
+      </div>
+      <div class="about-links">
+        <a class="about-link" href="https://www.linkedin.com/in/juanjesusmunozaguilera/" target="_blank" rel="noopener">
+          <div class="about-link-icon">💼</div>
+          <span>LinkedIn</span>
+          <small>Perfil profesional →</small>
+        </a>
+        <a class="about-link" href="https://europa.eu/europass/eportfolio/api/eprofile/shared-profile/juan+jes%C3%BAs-mu%C3%B1oz+aguilera/80d12651-3cf4-48cc-8cc0-44bee6e56e7e?view=html" target="_blank" rel="noopener">
+          <div class="about-link-icon">📄</div>
+          <span>Europass CV</span>
+          <small>Currículum completo →</small>
+        </a>
+        <a class="about-link" href="https://github.com/juanjesus-munoz" target="_blank" rel="noopener">
+          <div class="about-link-icon">🐙</div>
+          <span>GitHub</span>
+          <small>Repositorios →</small>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div style="max-width:900px; margin:0 auto; padding:0 clamp(1.5rem, 5vw, 4rem)">
+    <hr class="divider" />
+  </div>
+
+  <!-- STACK -->
+  <section id="stack" style="min-height:auto;">
+    <p class="section-label">02 — tecnologías</p>
+    <h2 class="section-title">Stack técnico</h2>
+    <div class="stack-grid">
+      <div class="stack-item">
+        <span class="stack-category">CFD</span>
+        <span class="stack-name">PyFR</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-category">CFD</span>
+        <span class="stack-name">Pointwise</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-category">Visualización</span>
+        <span class="stack-name">ParaView</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-category">Programación</span>
+        <span class="stack-name">Python</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-category">Programación</span>
+        <span class="stack-name">MATLAB</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-category">Entorno</span>
+        <span class="stack-name">VS Code</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-category">Normativa</span>
+        <span class="stack-name">EASA CAMO</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-category">Normativa</span>
+        <span class="stack-name">Part-145</span>
+      </div>
+    </div>
+  </section>
+
+  <div style="max-width:900px; margin:0 auto; padding:0 clamp(1.5rem, 5vw, 4rem)">
+    <hr class="divider" />
+  </div>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos" style="min-height:auto;">
+    <p class="section-label">03 — proyectos</p>
+    <h2 class="section-title">Proyectos destacados</h2>
+
+    <a class="project-card" href="https://github.com/juanjesus-munoz/TFG-Aeroacustica-PyFR" target="_blank" rel="noopener">
+      <div class="project-header">
+        <span class="project-title">Simulación aeroacústica de alta fidelidad con CFD</span>
+        <span class="project-badge">TFG</span>
+        <span class="project-arrow">→</span>
+      </div>
+      <p class="project-desc">
+        Trabajo Fin de Grado centrado en la simulación aeroacústica mediante métodos de alto orden
+        utilizando PyFR. Análisis de generación y propagación de ruido en flujos aerodinámicos con
+        técnicas de CFD de alta fidelidad.
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">PyFR</span>
+        <span class="project-tag">Pointwise</span>
+        <span class="project-tag">ParaView</span>
+        <span class="project-tag">Python</span>
+        <span class="project-tag">Aeroacústica</span>
+      </div>
+    </a>
+
+    <!-- Tarjeta placeholder para futuros proyectos -->
+    <div class="project-card" style="opacity:0.5; pointer-events:none; border-style:dashed;">
+      <div class="project-header">
+        <span class="project-title" style="color:var(--text-muted);">Próximamente...</span>
+      </div>
+      <p class="project-desc">Más proyectos en desarrollo.</p>
+    </div>
+  </section>
+
+  <div style="max-width:900px; margin:0 auto; padding:0 clamp(1.5rem, 5vw, 4rem)">
+    <hr class="divider" />
+  </div>
+
+  <!-- CONTACTO -->
+  <section id="contacto" style="min-height:auto; padding-bottom:6rem;">
+    <p class="section-label">04 — contacto</p>
+    <h2 class="section-title">¿Hablamos?</h2>
+    <div class="contact-box">
+      <p>
+        Abierto a oportunidades en el sector aeroespacial, proyectos de CFD y colaboraciones
+        técnicas. Si tienes algo interesante, escríbeme.
+      </p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="https://www.linkedin.com/in/juanjesusmunozaguilera/" target="_blank" rel="noopener">
+          LinkedIn
+        </a>
+        <a class="btn btn-secondary" href="https://europa.eu/europass/eportfolio/api/eprofile/shared-profile/juan+jes%C3%BAs-mu%C3%B1oz+aguilera/80d12651-3cf4-48cc-8cc0-44bee6e56e7e?view=html" target="_blank" rel="noopener">
+          Ver CV completo
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Diseñado y desarrollado por <span>Juan Jesús Muñoz Aguilera</span> · 2026</p>
+  </footer>
+
+</body>
+</html>
