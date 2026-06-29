@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TFG · Aeroacústica CFD | Juan Jesús Muñoz</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  
+  <!-- MathJax para renderizado de ecuaciones profesionales (LaTeX) -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -98,7 +110,7 @@
       font-size: 1.1rem;
       color: var(--text-secondary);
       font-weight: 400;
-      max-width: 650px;
+      max-width: 750px;
       line-height: 1.7;
       margin-bottom: 2rem;
     }
@@ -123,18 +135,32 @@
       border-radius: 20px; 
       font-size: 12px; 
       font-weight: 600; 
-      background: rgba(34, 197, 94, 0.15); /* Verde oscuro amigable */
+      background: rgba(34, 197, 94, 0.15); 
       color: #4ade80; 
       border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+    
+    .meta-badge.gold {
+      background: rgba(234, 179, 8, 0.15);
+      color: #facc15;
+      border-color: rgba(234, 179, 8, 0.3);
+      margin-left: 8px;
     }
 
     /* BODY CONTENT */
     h2 {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 600;
       letter-spacing: -0.02em;
-      margin: 2.5rem 0 1rem;
+      margin: 3rem 0 1.25rem;
       color: var(--text-primary);
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin: 2rem 0 1rem;
+      color: var(--accent);
     }
 
     h2:first-of-type { margin-top: 0; }
@@ -143,17 +169,58 @@
       color: var(--text-secondary);
       font-size: 15px;
       line-height: 1.8;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    strong { color: var(--text-primary); font-weight: 600; }
+    
+    /* MATH/CODE SNIPPETS IN TEXT */
+    code {
+      font-family: var(--mono);
+      background: var(--surface);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: #e2e8f0;
+      border: 1px solid var(--border);
     }
 
     hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
 
+    /* IMAGES (Figuras) */
+    .article-figure {
+      margin: 2.5rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .article-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      /* Un pequeño glow azulado sutil */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(56, 189, 248, 0.05);
+    }
+
+    .article-caption {
+      margin-top: 1rem;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 80%;
+      line-height: 1.5;
+    }
+
     /* INFO GRID */
     .info-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1rem;
-      margin: 1.5rem 0 2rem;
+      margin: 1.5rem 0 2.5rem;
     }
 
     .info-card {
@@ -161,7 +228,10 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 1.5rem;
+      transition: border-color 0.2s;
     }
+    
+    .info-card:hover { border-color: var(--accent); }
 
     .info-card-label {
       font-family: var(--mono);
@@ -175,25 +245,25 @@
     .info-card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
 
     /* PIPELINE */
-    .pipeline { display: flex; flex-direction: column; margin: 1.5rem 0 2rem; }
+    .pipeline { display: flex; flex-direction: column; margin: 2rem 0; }
 
     .pipeline-step {
       display: grid;
       grid-template-columns: 40px 1fr;
-      gap: 1rem;
+      gap: 1.5rem;
       align-items: start;
     }
 
-    .pipe-col { display: flex; flex-direction: column; align-items: center; }
+    .pipe-col { display: flex; flex-direction: column; align-items: center; height: 100%; }
 
     .pipe-dot {
-      width: 30px; height: 30px;
+      width: 36px; height: 36px;
       border-radius: 50%;
       background: var(--accent-bg);
       border: 1px solid var(--accent);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--accent);
       flex-shrink: 0;
@@ -203,23 +273,25 @@
       flex: 1;
       width: 1px;
       background: var(--border);
-      margin: 4px auto 0;
-      min-height: 1.5rem;
+      margin: 8px 0;
+      min-height: 3rem;
     }
 
-    .pipe-content { padding: 2px 0 2rem; }
-    .pipe-title { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+    .pipeline-step:last-child .pipe-line { display: none; }
+
+    .pipe-content { padding-bottom: 2rem; }
+    .pipe-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
     .pipe-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin: 0; }
 
     /* TAGS */
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 1rem 0 2rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 1.5rem 0; }
     .tag { 
       font-size: 12px; 
-      padding: 4px 12px; 
+      padding: 6px 14px; 
       border-radius: 20px; 
       background: var(--surface); 
       border: 1px solid var(--border); 
-      color: var(--text-secondary); 
+      color: var(--text-primary); 
       font-family: var(--mono); 
     }
 
@@ -229,9 +301,9 @@
       border: 1px solid rgba(56, 189, 248, 0.3);
       border-radius: var(--radius);
       padding: 1.5rem;
-      margin: 1.5rem 0 2rem;
+      margin: 2rem 0;
       display: flex;
-      gap: 1rem;
+      gap: 1.25rem;
       align-items: flex-start;
     }
 
@@ -239,49 +311,15 @@
     .highlight-text { font-size: 15px; color: var(--text-primary); line-height: 1.8; margin: 0; }
     .highlight-text strong { color: var(--accent); font-weight: 600; }
 
-    /* BUTTONS */
-    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 24px;
-      border-radius: var(--radius);
-      font-size: 14px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .btn-primary { 
-      background: var(--accent); 
-      color: #0f172a; 
-      box-shadow: 0 4px 14px rgba(56,189,248,0.2);
-    }
-    .btn-primary:hover { 
-      background: var(--accent-hover); 
-      color: #fff;
-      transform: translateY(-2px);
-    }
-    
-    .btn-secondary { 
-      background: rgba(255,255,255,0.03); 
-      color: var(--text-primary); 
-      border: 1px solid var(--border); 
-    }
-    .btn-secondary:hover { 
-      border-color: var(--accent); 
-      color: var(--accent);
-      background: var(--accent-bg);
-    }
-
-    footer { text-align: center; padding: 2rem; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border); }
+    footer { text-align: center; padding: 2rem; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 4rem;}
     footer span { color: var(--text-primary); font-weight: 500; }
 
     @media (max-width: 600px) {
       .info-grid { grid-template-columns: 1fr; }
       .meta-bar { gap: 1rem 1.5rem; }
+      .pipeline-step { gap: 1rem; }
+      .article-caption { max-width: 100%; }
+      .meta-badge.gold { margin-left: 0; margin-top: 8px; }
     }
   </style>
 </head>
@@ -303,147 +341,238 @@
     </div>
 
     <p class="project-eyebrow">03 — proyecto destacado · TFG</p>
-    <h1 class="project-title">Simulación aeroacústica de<br>alta fidelidad mediante CFD</h1>
+    <h1 class="project-title">Simulación Aerodinámica de Instrumentos Musicales Tipo Flauta mediante CFD con PyFR</h1>
     <p class="project-subtitle">
-      Simulación de ruido aerodinámico usando métodos numéricos de alto orden con PyFR
-      sobre geometrías complejas, con validación frente a la literatura especializada.
+      Investigación, modelado numérico y análisis físico de alta fidelidad del comportamiento aerodinámico y aeroacústico acoplado en instrumentos de bisel bajo regímenes de bajo número de Mach (DNS).
     </p>
 
     <div class="meta-bar">
       <div class="meta-item">
-        <span class="meta-label">Área</span>
-        <span class="meta-value">Aerodinámica Computacional</span>
+        <span class="meta-label">Institución</span>
+        <span class="meta-value">Universidad de Cádiz (UCA) - ESI</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Especialidad</span>
+        <span class="meta-value">Aeronaves</span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Herramienta principal</span>
-        <span class="meta-value">PyFR</span>
+        <span class="meta-value">PyFR / Pointwise / MATLAB</span>
       </div>
       <div class="meta-item">
-        <span class="meta-label">Estado</span>
-        <span class="meta-value"><span class="meta-badge">✓ Completado</span></span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Repositorio</span>
+        <span class="meta-label">Calificación / Estado</span>
         <span class="meta-value">
-          <a href="https://github.com/juanjesus-munoz/TFG-Aeroacustica-PyFR" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none; font-size:14px; font-weight: 600;">GitHub →</a>
+          <span class="meta-badge">✓ TFG Completado</span>
+          <span class="meta-badge gold">🏆 Nota: 9.5/10</span>
         </span>
       </div>
     </div>
 
-    <!-- MOTIVACIÓN -->
-    <h2>Motivación y contexto</h2>
+    <!-- RESUMEN EJECUTIVO -->
+    <h2>Resumen Ejecutivo</h2>
     <p>
-      El ruido generado por flujos aerodinámicos es uno de los principales retos en diseño de aeronaves modernas,
-      tanto por su impacto ambiental como por las exigencias normativas crecientes. La aeroacústica computacional
-      permite predecir y mitigar estas fuentes de ruido desde las primeras fases del diseño, reduciendo costes
-      frente a ensayos experimentales.
+      La simulación numérica de instrumentos de viento madera de tipo flauta representa un reto clásico de la física de fluidos. La generación de sonido no depende de una membrana mecánica activa, sino de una inestabilidad puramente hidrodinámica acoplada de forma resonante con la acústica del sistema.
     </p>
     <p>
-      Este trabajo aborda la simulación aeroacústica mediante métodos de alto orden, que ofrecen mayor precisión
-      que los métodos clásicos en la captura de fenómenos de pequeña escala relevantes para la generación de ruido.
+      Este proyecto aborda el estudio utilizando <strong>Dinámica de Fluidos Computacional (CFD)</strong> basada en el esquema de Reconstrucción de Flujo (FR) de alto orden espacial. Se simula de forma directa (DNS) la interacción no lineal compleja entre el chorro de aire insuflado y la cuña del instrumento, capturando con precisión los fenómenos de inestabilidad y el bucle de realimentación acústica.
     </p>
+
+    <!-- INSERTA AQUÍ LA IMAGEN 1 -->
+    <figure class="article-figure">
+      <!-- <img src="ruta/a/tu_imagen_1.jpg" alt="Campo de vorticidad instantáneo" class="article-img"> -->
+      <div class="article-img" style="width:100%; height:300px; display:flex; align-items:center; justify-content:center; color:var(--text-muted); border:1px dashed var(--border); background: transparent;">[ Espacio para Figura 1 - Campo de vorticidad ]</div>
+      <figcaption class="article-caption">Figura 1 - Campo de vorticidad instantáneo que ilustra la oscilación sinuosa en la embocadura.</figcaption>
+    </figure>
 
     <hr />
 
     <!-- OBJETIVOS -->
-    <h2>Objetivos del proyecto</h2>
+    <h2>Objetivos Clave del Proyecto</h2>
     <div class="info-grid">
       <div class="info-card">
-        <div class="info-card-label">Objetivo principal</div>
-        <div class="info-card-text">Simular la generación y propagación de ruido en flujos aerodinámicos con CFD de alta fidelidad usando PyFR.</div>
+        <div class="info-card-label">Análisis de inestabilidad</div>
+        <div class="info-card-text">Modelar la inestabilidad del chorro plano de aire en la embocadura y su subsiguiente impacto contra el bisel o cuña divisora.</div>
       </div>
       <div class="info-card">
-        <div class="info-card-label">Metodología</div>
-        <div class="info-card-text">Métodos FR/CPR de alto orden sobre mallas no estructuradas con aceleración GPU.</div>
+        <div class="info-card-label">Autooscilación</div>
+        <div class="info-card-text">Capturar la dinámica transitoria del acoplamiento aeroacústico y el desprendimiento de vórtices coherentes.</div>
       </div>
       <div class="info-card">
-        <div class="info-card-label">Validación</div>
-        <div class="info-card-text">Comparación con datos experimentales y soluciones de referencia de la literatura.</div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-label">Postproceso</div>
-        <div class="info-card-text">Análisis y visualización de campos de presión, velocidad y espectros de ruido con ParaView y Python.</div>
+        <div class="info-card-label">Estudio de confinamiento</div>
+        <div class="info-card-text">Analizar paramétricamente el efecto que la proximidad de una pared sólida inferior (confinamiento) ejerce sobre la estabilidad del sistema.</div>
       </div>
     </div>
 
+    <!-- FUNDAMENTOS FÍSICOS -->
+    <h2>Fundamentos Físicos del Flujo</h2>
+    <p>
+      El flujo se rige por las ecuaciones de Navier-Stokes para fluidos compresibles en formulación 2D. El régimen aerodinámico del estudio se define por dos números adimensionales clave:
+    </p>
+    
+    <ul style="list-style: none; padding: 0;">
+      <li style="color:var(--text-secondary); margin-bottom: 24px; padding-left: 20px; border-left: 2px solid var(--border);">
+        Régimen laminar con efectos viscosos: 
+        <div style="font-size: 1.15rem; margin: 12px 0; color: var(--text-primary);">
+          $$ Re = \frac{U_\infty W}{\nu} \approx 200 $$
+        </div>
+      </li>
+      <li style="color:var(--text-secondary); margin-bottom: 24px; padding-left: 20px; border-left: 2px solid var(--border);">
+        Aceleración del solver (limitando compresibilidad): 
+        <div style="font-size: 1.15rem; margin: 12px 0; color: var(--text-primary);">
+          $$ Ma = \frac{U_\infty}{c_\infty} = 0,3 $$
+        </div>
+      </li>
+    </ul>
+    
+    <p>
+      La dinámica fundamental de este sistema se basa en la amplificación de las perturbaciones en la capa de cizalladura. El flujo desarrolla la conocida <strong>inestabilidad de Kelvin-Helmholtz</strong>, la cual se manifiesta mediante el enrollamiento progresivo del fluido en vórtices discretos (fenómeno de <em>roll-up</em>). La formación alternada de estas estructuras coherentes de vorticidad excita acústicamente el instrumento al colisionar rítmicamente contra la cuña.
+    </p>
+
+    <!-- INSERTA AQUÍ LA IMAGEN 2 -->
+    <figure class="article-figure">
+      <!-- <img src="ruta/a/tu_imagen_2.jpg" alt="Inestabilidad de Kelvin-Helmholtz" class="article-img"> -->
+      <div class="article-img" style="width:100%; height:200px; display:flex; align-items:center; justify-content:center; color:var(--text-muted); border:1px dashed var(--border); background: transparent;">[ Espacio para Figura 2 - Inestabilidad Kelvin-Helmholtz ]</div>
+      <figcaption class="article-caption">Figura 2 - Visualización del desarrollo de la inestabilidad de Kelvin-Helmholtz (fenómeno de roll-up) en una capa de cizalladura.</figcaption>
+    </figure>
+
     <hr />
 
-    <!-- PIPELINE -->
-    <h2>Pipeline de trabajo</h2>
+    <!-- METODOLOGÍA COMPUTACIONAL -->
+    <h2>Metodología Computacional e Infraestructura (Toolchain)</h2>
+    <p>
+      Para resolver el flujo compresible no estacionario con alta fidelidad espacial y temporal sin recurrir a costosos modelos de turbulencia (enfoque de Simulación Numérica Directa - DNS), se configuró una cadena de herramientas (Toolchain) de última generación en ingeniería aeroespacial.
+    </p>
+
     <div class="pipeline">
       <div class="pipeline-step">
         <div class="pipe-col">
-          <div class="pipe-dot">01</div>
+          <div class="pipe-dot">1</div>
           <div class="pipe-line"></div>
         </div>
         <div class="pipe-content">
-          <div class="pipe-title">Generación de malla — Pointwise</div>
-          <p class="pipe-desc">Diseño de geometría y malla no estructurada, optimizando la resolución en zonas de interés aeroacústico.</p>
+          <div class="pipe-title">Pointwise</div>
+          <p class="pipe-desc">Generación del mallado estructurado multi-bloque de alta resolución y control paramétrico de la geometría.</p>
         </div>
       </div>
       <div class="pipeline-step">
         <div class="pipe-col">
-          <div class="pipe-dot">02</div>
+          <div class="pipe-dot">2</div>
           <div class="pipe-line"></div>
         </div>
         <div class="pipe-content">
-          <div class="pipe-title">Simulación CFD — PyFR</div>
-          <p class="pipe-desc">Configuración de condiciones de contorno, parámetros del solver de alto orden y ejecución sobre GPU.</p>
+          <div class="pipe-title">PyFR (Solver Computacional)</div>
+          <p class="pipe-desc">Ejecución de la Simulación Numérica Directa (DNS) utilizando esquemas Flux Reconstruction (FR) / Galerkin Discontinuo (DG) de alto orden sobre arquitecturas aceleradas por GPU.</p>
         </div>
       </div>
       <div class="pipeline-step">
         <div class="pipe-col">
-          <div class="pipe-dot">03</div>
+          <div class="pipe-dot">3</div>
           <div class="pipe-line"></div>
         </div>
         <div class="pipe-content">
-          <div class="pipe-title">Análisis de datos — Python</div>
-          <p class="pipe-desc">Postprocesado de campos de flujo: espectros de presión, transformadas de Fourier y análisis estadístico.</p>
-        </div>
-      </div>
-      <div class="pipeline-step">
-        <div class="pipe-col">
-          <div class="pipe-dot">04</div>
-        </div>
-        <div class="pipe-content">
-          <div class="pipe-title">Visualización — ParaView</div>
-          <p class="pipe-desc">Representación de campos de presión acústica, líneas de corriente y mapas de vorticidad.</p>
+          <div class="pipe-title">Análisis y Postprocesado</div>
+          <p class="pipe-desc">Uso de <strong>ParaView</strong> para el postprocesado visual de campos físicos (vorticidad, dilatación) y <strong>MATLAB</strong> para el análisis digital de señal (extracción de la frecuencia fundamental mediante FFT).</p>
         </div>
       </div>
     </div>
 
+    <!-- GEOMETRÍA Y MALLADO -->
+    <h2>Pre-procesado: Geometría y Mallado Avanzado</h2>
+    <h3>Configuraciones Geométricas de Estudio</h3>
+    <p>
+      El proyecto aborda la simulación comparativa de dos escenarios para evaluar el efecto aerodinámico de las fronteras: el <strong>Caso 1</strong>, donde el chorro interactúa con el bisel en un entorno de campo libre; y el <strong>Caso 2</strong>, que introduce una pared plana sólida en la parte inferior, confinando el flujo y modificando drásticamente su desarrollo hidrodinámico.
+    </p>
+
+    <!-- INSERTA AQUÍ LA IMAGEN 3 (a y b combinadas o separadas) -->
+    <figure class="article-figure">
+      <!-- <img src="ruta/a/tu_imagen_3.jpg" alt="Esquemas geométricos de los Casos 1 y 2" class="article-img"> -->
+      <div class="article-img" style="width:100%; height:250px; display:flex; align-items:center; justify-content:center; color:var(--text-muted); border:1px dashed var(--border); background: transparent;">[ Espacio para Figura 3 (a y b) - Geometrías ]</div>
+      <figcaption class="article-caption">Figura 3 - Comparación de los esquemas geométricos correspondientes a las dos configuraciones de estudio (Campo libre vs. Confinamiento).</figcaption>
+    </figure>
+
+    <h3>Optimización de Esquinas y Mallado Estructurado</h3>
+    <p>
+      La estabilidad de un esquema numérico de alto orden como PyFR es extremadamente sensible a las singularidades geométricas. Las esquinas vivas inducen gradientes infinitos que se traducen en oscilaciones espurias (fenómeno de Gibbs) y divergencia catastrófica (presiones negativas no físicas). Para solucionarlo, <strong>se aplicó un redondeo analítico continuo ($R_c = 0,12$) en seis esquinas críticas</strong> del bisel.
+    </p>
+    <p>
+      Se generó una malla estructurada multi-bloque de altísima resolución utilizando Pointwise, densificando drásticamente las celdas en el entorno de la embocadura para capturar la capa límite laminar y la estela turbulenta.
+    </p>
+
+    <!-- INSERTA AQUÍ LA IMAGEN 4 -->
+    <figure class="article-figure">
+      <!-- <img src="ruta/a/tu_imagen_4.jpg" alt="Mallado estructurado Pointwise" class="article-img"> -->
+      <div class="article-img" style="width:100%; height:300px; display:flex; align-items:center; justify-content:center; color:var(--text-muted); border:1px dashed var(--border); background: transparent;">[ Espacio para Figura 4 - Optimización del bisel y Malla ]</div>
+      <figcaption class="article-caption">Figura 4 - Optimización geométrica y detalle de la densificación de la malla estructurada en proximidades sólidas.</figcaption>
+    </figure>
+
     <hr />
 
-    <!-- STACK -->
-    <h2>Stack técnico</h2>
-    <div class="tags">
-      <span class="tag">PyFR</span>
-      <span class="tag">Pointwise</span>
-      <span class="tag">ParaView</span>
-      <span class="tag">Python</span>
-      <span class="tag">NumPy</span>
-      <span class="tag">Matplotlib</span>
-      <span class="tag">MATLAB</span>
-      <span class="tag">Linux / HPC</span>
-      <span class="tag">GPU Computing</span>
+    <!-- RESULTADOS CASO 1 -->
+    <h2>Resultados: Caso 1 (Geometría en Campo Libre)</h2>
+    <p>
+      En este escenario sin confinamiento inferior, el corte periódico del chorro desencadena un <strong>dipolo aeroacústico puro</strong>. Utilizando sensores virtuales y la integración de fuerzas sobre el bisel, se extrajo el histórico temporal de la fuerza sustentadora vertical $F_y(t)$.
+    </p>
+    <p>
+      Tras alcanzar un estado dinámico estable, el análisis espectral (FFT con ventanado de Hann en MATLAB) detectó una frecuencia fundamental muy limpia en $f_0 = 0,0492$ ($St_W = 0,1968$).
+    </p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+      <!-- INSERTA AQUÍ LA IMAGEN 5 -->
+      <figure class="article-figure" style="margin: 0;">
+        <!-- <img src="ruta/a/tu_imagen_5.jpg" alt="Campo de dilatación acústica (Caso 1)" class="article-img"> -->
+        <div class="article-img" style="width:100%; height:250px; display:flex; align-items:center; justify-content:center; color:var(--text-muted); border:1px dashed var(--border); background: transparent; text-align: center;">[ Figura 5 <br> Dilatación Campo Libre ]</div>
+      </figure>
+      <!-- INSERTA AQUÍ LA IMAGEN 6 -->
+      <figure class="article-figure" style="margin: 0;">
+        <!-- <img src="ruta/a/tu_imagen_6.jpg" alt="Espectro FFT (Caso 1)" class="article-img"> -->
+        <div class="article-img" style="width:100%; height:250px; display:flex; align-items:center; justify-content:center; color:var(--text-muted); border:1px dashed var(--border); background: transparent; text-align: center;">[ Figura 6 <br> Espectro FFT f0=0.0492 ]</div>
+      </figure>
+    </div>
+
+    <!-- RESULTADOS CASO 2 -->
+    <h2 style="margin-top: 4rem;">Resultados: Caso 2 (Confinamiento por Pared Inferior)</h2>
+    <p>
+      La inclusión de la pared sólida canaliza el flujo lateral e induce un efecto de atracción viscosa que reduce la deformación asimétrica del chorro. Físicamente, el confinamiento <strong>incrementa la rigidez del bucle aeroacústico</strong>, provocando fluctuaciones de mayor velocidad de propagación.
+    </p>
+    <p>
+      El análisis espectral comparativo reveló un aumento de la frecuencia fundamental a $f_0 = 0,0533$ ($St_W = 0,2132$), lo que representa un <strong>incremento neto del 8.3%</strong>, junto con un enriquecimiento evidente de los armónicos secundarios (comportamiento no lineal más acentuado).
+    </p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+      <!-- INSERTA AQUÍ LA IMAGEN 7 -->
+      <figure class="article-figure" style="margin: 0;">
+        <!-- <img src="ruta/a/tu_imagen_7.jpg" alt="Campo de dilatación acústica (Caso 2)" class="article-img"> -->
+        <div class="article-img" style="width:100%; height:250px; display:flex; align-items:center; justify-content:center; color:var(--text-muted); border:1px dashed var(--border); background: transparent; text-align: center;">[ Figura 7 <br> Dilatación con Confinamiento ]</div>
+      </figure>
+      <!-- INSERTA AQUÍ LA IMAGEN 8 -->
+      <figure class="article-figure" style="margin: 0;">
+        <!-- <img src="ruta/a/tu_imagen_8.jpg" alt="Espectro FFT (Caso 2)" class="article-img"> -->
+        <div class="article-img" style="width:100%; height:250px; display:flex; align-items:center; justify-content:center; color:var(--text-muted); border:1px dashed var(--border); background: transparent; text-align: center;">[ Figura 8 <br> Espectro FFT f0=0.0533 ]</div>
+      </figure>
     </div>
 
     <hr />
 
-    <!-- RESULTADO -->
-    <h2>Resultado</h2>
+    <!-- CONCLUSIONES Y COMPETENCIAS -->
+    <h2>Conclusiones y Competencias Adquiridas</h2>
     <div class="highlight-box">
-      <span class="highlight-icon">🎯</span>
+      <div class="highlight-icon">💡</div>
       <p class="highlight-text">
-        Obtención y validación de <strong>simulaciones aeroacústicas de alta fidelidad</strong> mediante métodos FR
-        de alto orden, demostrando la viabilidad de PyFR para el análisis de ruido aerodinámico en geometrías complejas.
-        Resultados comparados satisfactoriamente con referencias de la literatura especializada.
+        El esquema FR de alto orden demostró una excelente estabilidad para capturar fluctuaciones acústicas. Los números de Strouhal obtenidos ($St \approx 0,18 - 0,21$) concuerdan rigurosamente con los rangos experimentales clásicos de la literatura aeroacústica, validando la precisión de este solver sin costes experimentales físicos.
       </p>
     </div>
 
-    <div class="btn-group">
-      <a class="btn btn-primary" href="https://github.com/juanjesus-munoz/TFG-Aeroacustica-PyFR" target="_blank" rel="noopener">Ver código en GitHub</a>
+    <h3>Perfil Profesional Tecnológico</h3>
+    <div class="tags">
+      <span class="tag">CFD de Alto Orden (DG/FR)</span>
+      <span class="tag">Solvers de Riemann (HLLC)</span>
+      <span class="tag">Computación HPC (Linux)</span>
+      <span class="tag">Soporte GPU (CUDA/OpenMP)</span>
+      <span class="tag">Mallado Pointwise Analítico</span>
+      <span class="tag">Análisis Espectral FFT (MATLAB)</span>
+      <span class="tag">Postprocesado Científico (ParaView)</span>
     </div>
+
   </div>
 
   <footer>
