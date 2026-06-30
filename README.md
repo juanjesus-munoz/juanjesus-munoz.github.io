@@ -1,9 +1,5 @@
 # 🚀 Portfolio Web | Juan Jesús Muñoz Aguilera
 
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
-![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=flat-square&logo=github&logoColor=white)
-
 Código fuente de mi página web personal y portfolio profesional. Este sitio está diseñado
 para mostrar mi perfil como Ingeniero Aeroespacial, mi stack técnico y mis proyectos más
 destacados, especialmente aquellos enfocados en Aerodinámica Computacional (CFD) y Gestión
@@ -25,26 +21,16 @@ El portfolio incluye:
 - Stack técnico organizado por categorías
 - Información de contacto y enlaces profesionales
 
-## 🗂️ Estructura del repositorio
+## 📁 Sobre este repositorio
 
-```
-juanjesus-munoz.github.io/
-├── index.html      → Página principal del portfolio
-├── tfg.html         → Detalle del Trabajo de Fin de Grado
-├── Mi_foto.jpg       → Foto de perfil
-└── *.png / *.jpg     → Imágenes y figuras del TFG
-```
-
-## 🛠️ Tecnologías
-
-- HTML5
-- CSS3
-- GitHub Pages
+Este repositorio se llama `juanjesus-munoz.github.io` porque ese nombre exacto es el que
+GitHub Pages reconoce automáticamente para publicar un sitio web personal sin configuración
+adicional.
 
 ## 📄 Licencia
 
-Este repositorio contiene el código fuente de mi portfolio personal. El contenido visual
-y los textos son de uso personal; el código puede consultarse como referencia.
+El código de este repositorio puede consultarse libremente como referencia. El contenido
+visual y los textos son de uso personal.
 
 ---
 
