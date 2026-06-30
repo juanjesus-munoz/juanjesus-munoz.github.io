@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TFG · Aeroacústica CFD | Juan Jesús Muñoz</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  
-  <!-- MathJax para renderizado de ecuaciones profesionales (LaTeX) -->
   <script>
     MathJax = {
       tex: {
@@ -21,17 +19,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* PALETA OSCURA Y AZUL (Sincronizada con index.html) */
-      --bg: #0f172a;
-      --surface: #1e293b;
-      --border: #334155;
+      --bg:           #0f172a;
+      --surface:      #1e293b;
+      --surface-2:    #263347;
+      --border:       #334155;
       --text-primary: #f8fafc;
       --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-bg: rgba(56, 189, 248, 0.1);
-      --accent-hover: #0284c7;
-      
+      --text-muted:   #94a3b8;
+      --accent:       #38bdf8;
+      --accent-bg:    rgba(56, 189, 248, 0.08);
+      --accent-border:rgba(56, 189, 248, 0.25);
       --mono: 'JetBrains Mono', monospace;
       --sans: 'Inter', system-ui, sans-serif;
       --radius: 12px;
@@ -45,16 +42,17 @@
       background: var(--bg);
       color: var(--text-primary);
       font-size: 15px;
-      line-height: 1.6;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
     }
 
+    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       height: var(--nav-h);
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(12px);
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       z-index: 100;
       display: flex;
@@ -63,18 +61,36 @@
       padding: 0 clamp(1.25rem, 5vw, 5rem);
     }
 
-    .nav-logo { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--text-primary); text-decoration: none; letter-spacing: -0.5px; }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
     .nav-logo span { color: var(--accent); }
-    .nav-back { font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+
+    .nav-back {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
     .nav-back:hover { color: var(--accent); }
 
+    /* ── LAYOUT ── */
     .wrap {
       max-width: 900px;
       margin: 0 auto;
       padding: calc(var(--nav-h) + 2.5rem) clamp(1.25rem, 5vw, 3rem) 5rem;
     }
 
-    /* BREADCRUMB */
+    /* ── BREADCRUMB ── */
     .breadcrumb {
       font-family: var(--mono);
       font-size: 12px;
@@ -87,7 +103,7 @@
     .breadcrumb a { color: var(--accent); text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
 
-    /* HEADER */
+    /* ── HEADER ── */
     .project-eyebrow {
       font-family: var(--mono);
       font-size: 12px;
@@ -98,7 +114,7 @@
     }
 
     .project-title {
-      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-size: clamp(1.9rem, 4.5vw, 2.9rem);
       font-weight: 600;
       letter-spacing: -0.03em;
       line-height: 1.15;
@@ -107,20 +123,46 @@
     }
 
     .project-subtitle {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: var(--text-secondary);
       font-weight: 400;
       max-width: 750px;
-      line-height: 1.7;
-      margin-bottom: 2rem;
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
     }
 
-    /* META BAR */
+    /* ── TUTORES ── */
+    .tutores-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+    }
+
+    .tutores-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .tutor-chip {
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    /* ── META BAR ── */
     .meta-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.5rem 3rem;
-      padding: 1.5rem 0;
+      gap: 1.25rem 3rem;
+      padding: 1.25rem 0;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       margin-bottom: 3rem;
@@ -129,72 +171,70 @@
     .meta-item { display: flex; flex-direction: column; gap: 4px; }
     .meta-label { font-family: var(--mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
     .meta-value { font-size: 14px; font-weight: 500; color: var(--text-primary); }
-    .meta-badge { 
-      display: inline-block; 
-      padding: 3px 10px; 
-      border-radius: 20px; 
-      font-size: 12px; 
-      font-weight: 600; 
-      background: rgba(34, 197, 94, 0.15); 
-      color: #4ade80; 
+
+    .meta-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      background: rgba(34, 197, 94, 0.12);
+      color: #4ade80;
       border: 1px solid rgba(34, 197, 94, 0.3);
     }
-    
     .meta-badge.gold {
-      background: rgba(234, 179, 8, 0.15);
+      background: rgba(234, 179, 8, 0.12);
       color: #facc15;
       border-color: rgba(234, 179, 8, 0.3);
-      margin-left: 8px;
+      margin-left: 6px;
     }
 
-    /* BODY CONTENT */
+    /* ── TIPOGRAFÍA ── */
     h2 {
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       font-weight: 600;
       letter-spacing: -0.02em;
-      margin: 3rem 0 1.25rem;
+      margin: 2.75rem 0 1.1rem;
       color: var(--text-primary);
     }
 
     h3 {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 500;
-      margin: 2rem 0 1rem;
+      margin: 1.75rem 0 0.85rem;
       color: var(--accent);
     }
-
-    h2:first-of-type { margin-top: 0; }
 
     p {
       color: var(--text-secondary);
       font-size: 15px;
       line-height: 1.8;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
 
     strong { color: var(--text-primary); font-weight: 600; }
-    
-    /* MATH/CODE SNIPPETS IN TEXT */
+    em { color: var(--text-secondary); }
+
     code {
       font-family: var(--mono);
       background: var(--surface);
       padding: 2px 6px;
       border-radius: 4px;
-      font-size: 0.9em;
-      color: #e2e8f0;
+      font-size: 0.88em;
+      color: var(--accent);
       border: 1px solid var(--border);
     }
 
-    hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
 
-    /* IMAGES (Figuras) */
+    /* ── FIGURAS ── */
     .article-figure {
-      margin: 2.5rem 0;
+      margin: 1.75rem 0;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    
+
     .article-img {
       max-width: 100%;
       height: auto;
@@ -202,63 +242,109 @@
       border-radius: var(--radius);
       border: 1px solid var(--border);
       background: var(--surface);
-      /* Un pequeño glow azulado sutil */
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(56, 189, 248, 0.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 0 20px rgba(56,189,248,0.04);
+    }
+
+    /* Placeholder si la imagen falla */
+    .img-ph {
+      width: 100%;
+      min-height: 180px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      border: 1px dashed var(--border);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      background: repeating-linear-gradient(
+        45deg, transparent, transparent 8px,
+        rgba(255,255,255,0.015) 8px, rgba(255,255,255,0.015) 16px
+      );
     }
 
     .article-caption {
-      margin-top: 1rem;
+      margin-top: 0.85rem;
       font-family: var(--mono);
       font-size: 12px;
       color: var(--text-muted);
       text-align: center;
-      max-width: 80%;
-      line-height: 1.5;
+      max-width: 85%;
+      line-height: 1.55;
+    }
+    .article-caption strong { color: var(--accent); font-style: normal; }
+
+    /* Grid 2 columnas para figuras lado a lado */
+    .figures-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      margin-bottom: 0.75rem;
     }
 
-    /* INFO GRID */
+    .figures-grid .article-figure { margin: 0; }
+
+    /* ── INFO GRID (objetivos) ── */
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      margin: 1.5rem 0 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.85rem;
+      margin: 1.25rem 0 2rem;
     }
 
     .info-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem;
+      padding: 1.25rem;
       transition: border-color 0.2s;
     }
-    
     .info-card:hover { border-color: var(--accent); }
 
     .info-card-label {
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10px;
       color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 0.07em;
       margin-bottom: 0.5rem;
     }
 
-    .info-card-text { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+    .info-card-text { font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; }
 
-    /* PIPELINE */
-    .pipeline { display: flex; flex-direction: column; margin: 2rem 0; }
+    /* ── ECUACIONES ── */
+    .eq-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin: 0.75rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .eq-desc { font-size: 13px; color: var(--text-muted); }
+    .eq-formula { color: var(--text-primary); font-size: 1rem; }
+
+    /* ── PIPELINE ── */
+    .pipeline { display: flex; flex-direction: column; margin: 1.5rem 0 2rem; }
 
     .pipeline-step {
       display: grid;
       grid-template-columns: 40px 1fr;
-      gap: 1.5rem;
+      gap: 1.25rem;
       align-items: start;
     }
 
-    .pipe-col { display: flex; flex-direction: column; align-items: center; height: 100%; }
+    .pipe-col { display: flex; flex-direction: column; align-items: center; }
 
     .pipe-dot {
-      width: 36px; height: 36px;
+      width: 34px; height: 34px;
       border-radius: 50%;
       background: var(--accent-bg);
       border: 1px solid var(--accent);
@@ -274,53 +360,168 @@
       flex: 1;
       width: 1px;
       background: var(--border);
-      margin: 8px 0;
-      min-height: 3rem;
+      margin: 6px 0;
+      min-height: 2rem;
     }
 
     .pipeline-step:last-child .pipe-line { display: none; }
 
-    .pipe-content { padding-bottom: 2rem; }
-    .pipe-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+    .pipe-content { padding-bottom: 1.75rem; }
+    .pipe-title { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
     .pipe-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin: 0; }
 
-    /* TAGS */
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 1.5rem 0; }
-    .tag { 
-      font-size: 12px; 
-      padding: 6px 14px; 
-      border-radius: 20px; 
-      background: var(--surface); 
-      border: 1px solid var(--border); 
-      color: var(--text-primary); 
-      font-family: var(--mono); 
+    /* ── TABLA ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.75rem;
+      font-size: 13px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
     }
 
-    /* HIGHLIGHT */
+    .data-table th {
+      background: var(--surface-2);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 9px 16px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .data-table td {
+      padding: 9px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    .data-table tr:hover td { background: var(--accent-bg); }
+
+    .data-table td:first-child {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ── COMPARATIVA RESULTADOS ── */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+      margin: 1.25rem 0 1.75rem;
+    }
+
+    .compare-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+    }
+
+    .compare-card-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.5rem;
+    }
+
+    .compare-stat {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+    }
+
+    .compare-desc { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+    /* ── HIGHLIGHT ── */
     .highlight-box {
       background: var(--accent-bg);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      border: 1px solid var(--accent-border);
       border-radius: var(--radius);
-      padding: 1.5rem;
-      margin: 2rem 0;
+      padding: 1.4rem 1.5rem;
+      margin: 1.5rem 0;
       display: flex;
-      gap: 1.25rem;
+      gap: 1rem;
       align-items: flex-start;
     }
 
-    .highlight-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .highlight-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
     .highlight-text { font-size: 15px; color: var(--text-primary); line-height: 1.8; margin: 0; }
     .highlight-text strong { color: var(--accent); font-weight: 600; }
 
-    footer { text-align: center; padding: 2rem; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 4rem;}
+    /* ── TAGS ── */
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 1.25rem 0; }
+    .tag {
+      font-size: 12px;
+      padding: 5px 13px;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-family: var(--mono);
+      transition: border-color 0.18s, color 0.18s;
+    }
+    .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── BOTONES ── */
+    .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 2.25rem; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 22px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.18s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0f172a;
+      border: 1px solid var(--accent);
+    }
+    .btn-primary:hover { background: #7dd3fc; border-color: #7dd3fc; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--text-secondary); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+    }
     footer span { color: var(--text-primary); font-weight: 500; }
 
+    /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       .info-grid { grid-template-columns: 1fr; }
+      .figures-grid { grid-template-columns: 1fr; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .eq-block { flex-direction: column; align-items: flex-start; }
       .meta-bar { gap: 1rem 1.5rem; }
-      .pipeline-step { gap: 1rem; }
       .article-caption { max-width: 100%; }
-      .meta-badge.gold { margin-left: 0; margin-top: 8px; }
+      .meta-badge.gold { margin-left: 0; margin-top: 6px; }
     }
   </style>
 </head>
@@ -338,19 +539,28 @@
       <span>/</span>
       <span>Proyectos</span>
       <span>/</span>
-      <span>TFG · Aeroacústica CFD</span>
+      <span>TFG · CFD Instrumento de Bisel</span>
     </div>
 
-    <p class="project-eyebrow">03 — proyecto destacado · TFG</p>
+    <!-- ── CABECERA ── -->
+    <p class="project-eyebrow">TFG · Ingeniería Aeroespacial · UCA</p>
     <h1 class="project-title">Simulación Aerodinámica de Instrumentos Musicales Tipo Flauta mediante CFD con PyFR</h1>
+
     <p class="project-subtitle">
-      Investigación, modelado numérico y análisis físico de alta fidelidad del comportamiento aerodinámico y aeroacústico acoplado en instrumentos de bisel bajo regímenes de bajo número de Mach (DNS).
+      Investigación, modelado numérico y análisis físico de alta fidelidad del comportamiento
+      aerodinámico y aeroacústico acoplado en instrumentos de bisel bajo regímenes de bajo número de Mach (DNS).
     </p>
+
+    <div class="tutores-bar">
+      <span class="tutores-label">Tutores:</span>
+      <span class="tutor-chip">👨‍🏫 Dr. Miguel Ángel Fosas de Pando</span>
+      <span class="tutor-chip">👨‍🏫 Dr. Rodolfo Ostilla Monico</span>
+    </div>
 
     <div class="meta-bar">
       <div class="meta-item">
         <span class="meta-label">Institución</span>
-        <span class="meta-value">Universidad de Cádiz (UCA) - ESI</span>
+        <span class="meta-value">ESI · Universidad de Cádiz (UCA)</span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Especialidad</span>
@@ -361,32 +571,48 @@
         <span class="meta-value">PyFR / Pointwise / MATLAB</span>
       </div>
       <div class="meta-item">
-        <span class="meta-label">Calificación / Estado</span>
+        <span class="meta-label">Estado</span>
         <span class="meta-value">
           <span class="meta-badge">✓ TFG Completado</span>
           <span class="meta-badge gold">🏆 Nota: 9.5/10</span>
         </span>
       </div>
+      <div class="meta-item">
+        <span class="meta-label">Repositorio</span>
+        <span class="meta-value">
+          <a href="https://github.com/juanjesus-munoz/TFG-Aeroacustica-PyFR" target="_blank" rel="noopener"
+             style="color:var(--accent); text-decoration:none; font-size:13px;">GitHub →</a>
+        </span>
+      </div>
     </div>
 
-    <!-- RESUMEN EJECUTIVO -->
-    <h2>Resumen Ejecutivo</h2>
-    <p>
-      La simulación numérica de instrumentos de viento madera de tipo flauta representa un reto clásico de la física de fluidos. La generación de sonido no depende de una membrana mecánica activa, sino de una inestabilidad puramente hidrodinámica acoplada de forma resonante con la acústica del sistema.
-    </p>
-    <p>
-      Este proyecto aborda el estudio utilizando <strong>Dinámica de Fluidos Computacional (CFD)</strong> basada en el esquema de Reconstrucción de Flujo (FR) de alto orden espacial. Se simula de forma directa (DNS) la interacción no lineal compleja entre el chorro de aire insuflado y la cuña del instrumento, capturando con precisión los fenómenos de inestabilidad y el bucle de realimentación acústica.
-    </p>
-
-    <!-- FIGURA 1 -->
+    <!-- ── FIGURA 1 ── -->
     <figure class="article-figure">
-      <img src="vor_2_800.png" alt="Campo de vorticidad instantáneo" class="article-img" loading="lazy">
-      <figcaption class="article-caption">Figura 1 - Campo de vorticidad instantáneo que ilustra la oscilación sinuosa en la embocadura.</figcaption>
+      <img src="vor_2_800.png" alt="Campo de vorticidad instantáneo — embocadura" class="article-img" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="img-ph">[ Fig. 1 · vor_2_800.png — pendiente de subir ]</div>
+      <figcaption class="article-caption"><strong>Figura 1</strong> — Campo de vorticidad instantáneo que ilustra la oscilación sinuosa en la embocadura.</figcaption>
     </figure>
 
     <hr />
 
-    <!-- OBJETIVOS -->
+    <!-- ── RESUMEN EJECUTIVO ── -->
+    <h2>Resumen Ejecutivo</h2>
+    <p>
+      La simulación numérica de instrumentos de viento madera de tipo flauta representa un reto clásico
+      de la física de fluidos. La generación de sonido no depende de una membrana mecánica activa, sino de
+      una <strong>inestabilidad puramente hidrodinámica</strong> acoplada de forma resonante con la acústica del sistema.
+    </p>
+    <p>
+      Este proyecto aborda el estudio utilizando <strong>Dinámica de Fluidos Computacional (CFD)</strong> basada
+      en el esquema de Reconstrucción de Flujo (FR) de alto orden espacial. Se simula de forma directa (DNS)
+      la interacción no lineal compleja entre el chorro de aire insuflado y la cuña del instrumento,
+      capturando con precisión los fenómenos de inestabilidad y el bucle de realimentación acústica.
+    </p>
+
+    <hr />
+
+    <!-- ── OBJETIVOS ── -->
     <h2>Objetivos Clave del Proyecto</h2>
     <div class="info-grid">
       <div class="info-card">
@@ -394,180 +620,267 @@
         <div class="info-card-text">Modelar la inestabilidad del chorro plano de aire en la embocadura y su subsiguiente impacto contra el bisel o cuña divisora.</div>
       </div>
       <div class="info-card">
-        <div class="info-card-label">Autooscilación</div>
+        <div class="info-card-label">Fenómeno de autooscilación</div>
         <div class="info-card-text">Capturar la dinámica transitoria del acoplamiento aeroacústico y el desprendimiento de vórtices coherentes.</div>
       </div>
       <div class="info-card">
         <div class="info-card-label">Estudio de confinamiento</div>
-        <div class="info-card-text">Analizar paramétricamente el efecto que la proximidad de una pared sólida inferior (confinamiento) ejerce sobre la estabilidad del sistema.</div>
+        <div class="info-card-text">Analizar paramétricamente el efecto de una pared sólida inferior sobre la estabilidad global del sistema.</div>
       </div>
     </div>
 
-    <!-- FUNDAMENTOS FÍSICOS -->
+    <!-- ── FUNDAMENTOS FÍSICOS ── -->
     <h2>Fundamentos Físicos del Flujo</h2>
     <p>
-      El flujo se rige por las ecuaciones de Navier-Stokes para fluidos compresibles en formulación 2D. El régimen aerodinámico del estudio se define por dos números adimensionales clave:
-    </p>
-    
-    <ul style="list-style: none; padding: 0;">
-      <li style="color:var(--text-secondary); margin-bottom: 24px; padding-left: 20px; border-left: 2px solid var(--border);">
-        Régimen laminar con efectos viscosos: 
-        <div style="font-size: 1.15rem; margin: 12px 0; color: var(--text-primary);">
-          $$ Re = \frac{U_\infty W}{\nu} \approx 200 $$
-        </div>
-      </li>
-      <li style="color:var(--text-secondary); margin-bottom: 24px; padding-left: 20px; border-left: 2px solid var(--border);">
-        Aceleración del solver (limitando compresibilidad): 
-        <div style="font-size: 1.15rem; margin: 12px 0; color: var(--text-primary);">
-          $$ Ma = \frac{U_\infty}{c_\infty} = 0,3 $$
-        </div>
-      </li>
-    </ul>
-    
-    <p>
-      La dinámica fundamental de este sistema se basa en la amplificación de las perturbaciones en la capa de cizalladura. El flujo desarrolla la conocida <strong>inestabilidad de Kelvin-Helmholtz</strong>, la cual se manifiesta mediante el enrollamiento progresivo del fluido en vórtices discretos (fenómeno de <em>roll-up</em>). La formación alternada de estas estructuras coherentes de vorticidad excita acústicamente el instrumento al colisionar rítmicamente contra la cuña.
+      El flujo se rige por las ecuaciones de Navier-Stokes para fluidos compresibles en formulación 2D.
+      El régimen aerodinámico del estudio se define por dos números adimensionales clave:
     </p>
 
-    <!-- FIGURA 2 -->
+    <div class="eq-block">
+      <span class="eq-desc">Número de Reynolds — Régimen laminar con efectos viscosos</span>
+      <span class="eq-formula">$$ Re = \frac{U_\infty W}{\nu} \approx 200 $$</span>
+    </div>
+    <div class="eq-block">
+      <span class="eq-desc">Número de Mach — Acelera el solver limitando compresibilidad</span>
+      <span class="eq-formula">$$ Ma = \frac{U_\infty}{c_\infty} = 0{,}3 $$</span>
+    </div>
+
+    <p style="margin-top:1rem;">
+      La dinámica fundamental se basa en la amplificación de perturbaciones en la capa de cizalladura.
+      El flujo desarrolla la conocida <strong>inestabilidad de Kelvin-Helmholtz</strong>, que se manifiesta
+      mediante el enrollamiento progresivo del fluido en vórtices discretos (fenómeno de <em>roll-up</em>).
+      La formación alternada de estas estructuras de vorticidad excita acústicamente el instrumento al
+      colisionar rítmicamente contra la cuña.
+    </p>
+
+    <!-- ── FIGURA 2 ── -->
     <figure class="article-figure">
-      <img src="Visualizacion_inestabilidad.jpg" alt="Inestabilidad de Kelvin-Helmholtz" class="article-img" loading="lazy">
-      <figcaption class="article-caption">Figura 2 - Visualización del desarrollo de la inestabilidad de Kelvin-Helmholtz (fenómeno de roll-up) en una capa de cizalladura.</figcaption>
+      <img src="Visualizacion_inestabilidad.jpg" alt="Inestabilidad de Kelvin-Helmholtz — roll-up" class="article-img" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="img-ph">[ Fig. 2 · Visualizacion_inestabilidad.jpg — pendiente de subir ]</div>
+      <figcaption class="article-caption"><strong>Figura 2</strong> — Desarrollo de la inestabilidad de Kelvin-Helmholtz (fenómeno de <em>roll-up</em>) en una capa de cizalladura.</figcaption>
     </figure>
 
     <hr />
 
-    <!-- METODOLOGÍA COMPUTACIONAL -->
+    <!-- ── METODOLOGÍA / TOOLCHAIN ── -->
     <h2>Metodología Computacional e Infraestructura (Toolchain)</h2>
     <p>
-      Para resolver el flujo compresible no estacionario con alta fidelidad espacial y temporal sin recurrir a costosos modelos de turbulencia (enfoque de Simulación Numérica Directa - DNS), se configuró una cadena de herramientas (Toolchain) de última generación en ingeniería aeroespacial.
+      Para resolver el flujo compresible no estacionario con alta fidelidad sin recurrir a costosos modelos
+      de turbulencia (enfoque DNS), se configuró una cadena de herramientas de última generación:
     </p>
 
     <div class="pipeline">
       <div class="pipeline-step">
-        <div class="pipe-col">
-          <div class="pipe-dot">1</div>
-          <div class="pipe-line"></div>
-        </div>
+        <div class="pipe-col"><div class="pipe-dot">1</div><div class="pipe-line"></div></div>
         <div class="pipe-content">
-          <div class="pipe-title">Pointwise</div>
-          <p class="pipe-desc">Generación del mallado estructurado multi-bloque de alta resolución y control paramétrico de la geometría.</p>
+          <div class="pipe-title">Pointwise — Mallado estructurado</div>
+          <p class="pipe-desc">Generación del mallado multi-bloque de alta resolución y control paramétrico de la geometría con densificación local en zonas de interés aeroacústico.</p>
         </div>
       </div>
       <div class="pipeline-step">
-        <div class="pipe-col">
-          <div class="pipe-dot">2</div>
-          <div class="pipe-line"></div>
-        </div>
+        <div class="pipe-col"><div class="pipe-dot">2</div><div class="pipe-line"></div></div>
         <div class="pipe-content">
-          <div class="pipe-title">PyFR (Solver Computacional)</div>
-          <p class="pipe-desc">Ejecución de la Simulación Numérica Directa (DNS) utilizando esquemas Flux Reconstruction (FR) / Galerkin Discontinuo (DG) de alto orden sobre arquitecturas aceleradas por GPU.</p>
+          <div class="pipe-title">PyFR — Solver FR/DG sobre GPU</div>
+          <p class="pipe-desc">Simulación Numérica Directa (DNS) con esquemas Flux Reconstruction / Galerkin Discontinuo de alto orden. Ejecución sobre arquitecturas aceleradas con solvers de Riemann HLLC (CUDA/OpenMP).</p>
         </div>
       </div>
       <div class="pipeline-step">
-        <div class="pipe-col">
-          <div class="pipe-dot">3</div>
-          <div class="pipe-line"></div>
-        </div>
+        <div class="pipe-col"><div class="pipe-dot">3</div><div class="pipe-line"></div></div>
         <div class="pipe-content">
-          <div class="pipe-title">Análisis y Postprocesado</div>
-          <p class="pipe-desc">Uso de <strong>ParaView</strong> para el postprocesado visual de campos físicos (vorticidad, dilatación) y <strong>MATLAB</strong> para el análisis digital de señal (extracción de la frecuencia fundamental mediante FFT).</p>
+          <div class="pipe-title">ParaView — Postprocesado visual</div>
+          <p class="pipe-desc">Análisis y visualización 3D de campos físicos: vorticidad, dilatación acústica, líneas de corriente y campos ondulatorios de presión.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="pipe-col"><div class="pipe-dot">4</div></div>
+        <div class="pipe-content">
+          <div class="pipe-title">MATLAB — Análisis espectral (FFT)</div>
+          <p class="pipe-desc">Extracción de la frecuencia fundamental mediante FFT con ventanado de Hann. Análisis de históricos de fuerza sustentadora e identificación de picos espectrales.</p>
         </div>
       </div>
     </div>
 
-    <!-- GEOMETRÍA Y MALLADO -->
+    <hr />
+
+    <!-- ── GEOMETRÍA Y MALLADO ── -->
     <h2>Pre-procesado: Geometría y Mallado Avanzado</h2>
-    <h3>Configuraciones Geométricas de Estudio</h3>
+    <h3>Configuraciones geométricas de estudio</h3>
     <p>
-      El proyecto aborda la simulación comparativa de dos escenarios para evaluar el efecto aerodinámico de las fronteras: el <strong>Caso 1</strong>, donde el chorro interactúa con el bisel en un entorno de campo libre; y el <strong>Caso 2</strong>, que introduce una pared plana sólida en la parte inferior, confinando el flujo y modificando drásticamente su desarrollo hidrodinámico.
+      El proyecto simula comparativamente dos escenarios: el <strong>Caso 1</strong>, donde el chorro interactúa
+      con el bisel en campo libre; y el <strong>Caso 2</strong>, que introduce una pared sólida inferior que
+      confina el flujo y modifica drásticamente su desarrollo hidrodinámico.
     </p>
 
-    <!-- FIGURA 3 (DOS IMÁGENES ALINEADAS) -->
+    <!-- ── FIGURA 3a y 3b ── -->
     <figure class="article-figure">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%; margin-bottom: 1rem;">
-        <img src="boceto_caso_1.jpg" alt="Esquema geométrico del Caso 1" class="article-img" loading="lazy">
-        <img src="boceto_caso_2.jpg" alt="Esquemas geométricos del Caso 2" class="article-img" loading="lazy">
+      <div class="figures-grid">
+        <div>
+          <img src="boceto_caso_1.jpg" alt="Caso 1 — campo libre" class="article-img" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-ph">[ Fig. 3a · boceto_caso_1.jpg ]</div>
+        </div>
+        <div>
+          <img src="boceto_caso_2.jpg" alt="Caso 2 — confinamiento" class="article-img" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-ph">[ Fig. 3b · boceto_caso_2.jpg ]</div>
+        </div>
       </div>
-      <figcaption class="article-caption">Figura 3 - Comparación de los esquemas geométricos correspondientes a las dos configuraciones de estudio (Campo libre vs. Confinamiento).</figcaption>
+      <figcaption class="article-caption">
+        <strong>Figura 3</strong> — Comparación de las dos configuraciones de estudio: (a) campo libre · (b) confinamiento por pared inferior.
+      </figcaption>
     </figure>
 
-    <h3>Optimización de Esquinas y Mallado Estructurado</h3>
+    <h3>Parámetros geométricos del modelo</h3>
+    <p>Geometría adimensionalizada respecto a la anchura del canal de insuflación ($W$):</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Símbolo</th>
+          <th>Descripción geométrica</th>
+          <th>Valor adimensional</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>$l$</td><td>Longitud del canal de insuflación</td><td>10h</td></tr>
+        <tr><td>$W$</td><td>Anchura del canal de insuflación</td><td>8h</td></tr>
+        <tr><td>$L$</td><td>Distancia desde salida del canal hasta el bisel</td><td>≈ 20h</td></tr>
+        <tr><td>$h$</td><td>Desplazamiento vertical de la punta de la cuña</td><td>0,5</td></tr>
+        <tr><td>$\alpha$</td><td>Ángulo de apertura de la cuña deflectora</td><td>15°</td></tr>
+        <tr><td>$L_1$</td><td>Profundidad del confinamiento inferior</td><td>10h</td></tr>
+        <tr><td>$L_2$</td><td>Longitud de la pared inferior de confinamiento</td><td>30h</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Optimización de esquinas y mallado estructurado</h3>
     <p>
-      La estabilidad de un esquema numérico de alto orden como PyFR es extremadamente sensible a las singularidades geométricas. Las esquinas vivas inducen gradientes infinitos que se traducen en oscilaciones espurias (fenómeno de Gibbs) y divergencia catastrófica (presiones negativas no físicas). Para solucionarlo, <strong>se aplicó un redondeo analítico continuo ($R_c = 0,12$) en seis esquinas críticas</strong> del bisel.
+      Los esquemas FR/DG de alto orden son extremadamente sensibles a singularidades geométricas. Las esquinas
+      vivas inducen oscilaciones espurias tipo Gibbs y divergencia catastrófica (presiones negativas no físicas).
+      Se aplicó un <strong>redondeo analítico continuo ($R_c = 0{,}12$) en 6 esquinas críticas</strong> del bisel,
+      estabilizando el cálculo sin alterar la física global.
     </p>
     <p>
-      Se generó una malla estructurada multi-bloque de altísima resolución utilizando Pointwise, densificando drásticamente las celdas en el entorno de la embocadura para capturar la capa límite laminar y la estela turbulenta.
+      La malla estructurada multi-bloque densifica drásticamente las celdas en el entorno de la embocadura
+      para capturar la capa límite laminar y la estela turbulenta generada tras la cuña.
     </p>
 
-    <!-- FIGURA 4 -->
+    <!-- ── FIGURA 4 ── -->
     <figure class="article-figure">
-      <img src="mallado_caso_2.jpg" alt="Mallado estructurado Pointwise" class="article-img" loading="lazy">
-      <figcaption class="article-caption">Figura 4 - Optimización geométrica y detalle de la densificación de la malla estructurada en proximidades sólidas.</figcaption>
+      <img src="mallado_caso_2.jpg" alt="Malla estructurada Pointwise — densificación bisel" class="article-img" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="img-ph">[ Fig. 4 · mallado_caso_2.jpg — pendiente de subir ]</div>
+      <figcaption class="article-caption"><strong>Figura 4</strong> — Optimización del bisel y densificación de la malla estructurada en proximidades de superficies sólidas.</figcaption>
     </figure>
 
     <hr />
 
-    <!-- RESULTADOS CASO 1 -->
-    <h2>Resultados: Caso 1 (Geometría en Campo Libre)</h2>
+    <!-- ── RESULTADOS CASO 1 ── -->
+    <h2>Resultados — Caso 1: Geometría en Campo Libre</h2>
     <p>
-      En este escenario sin confinamiento inferior, el corte periódico del chorro desencadena un <strong>dipolo aeroacústico puro</strong>. Utilizando sensores virtuales y la integración de fuerzas sobre el bisel, se extrajo el histórico temporal de la fuerza sustentadora vertical $F_y(t)$.
+      El corte periódico del chorro desencadena un <strong>dipolo aeroacústico puro</strong>. Mediante sensores
+      virtuales e integración de fuerzas sobre el bisel, se extrajo el histórico temporal de la fuerza
+      sustentadora $F_y(t)$. Tras el transitorio inicial ($t < 400$), la oscilación alcanza equilibrio
+      dinámico estable con período $T \approx 20$.
     </p>
     <p>
-      Tras alcanzar un estado dinámico estable, el análisis espectral (FFT con ventanado de Hann en MATLAB) detectó una frecuencia fundamental muy limpia en $f_0 = 0,0492$ ($St_W = 0,1968$).
+      El análisis espectral (FFT con ventanado de Hann) detectó una frecuencia fundamental muy limpia:
+      $f_0 = 0{,}0492$ ($St_W = 0{,}1968$).
     </p>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-    <!-- RESULTADOS CASO 1 -->
-    <h2>Resultados: Caso 1 (Campo Libre)</h2>
-    <p>Análisis espectral y visualización del campo de dilatación.</p>
-
     <figure class="article-figure">
-      <img src="caso_1_dil_800_zoom.png" alt="Campo de dilatación acústica" class="article-img">
-      <figcaption class="article-caption">Figura 5 - Campo de dilatación (Campo Libre).</figcaption>
-    </figure>
-
-    <figure class="article-figure">
-      <img src="caso_1_Fyf_vs_f.png" alt="Espectro FFT" class="article-img">
-      <figcaption class="article-caption">Figura 6 - Espectro FFT $f_0 = 0.0492$.</figcaption>
+      <div class="figures-grid">
+        <div>
+          <img src="caso_1_dil_800_zoom.png" alt="Campo de dilatación acústica — Caso 1" class="article-img" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-ph">[ Fig. 5 · caso_1_dil_800_zoom.png ]</div>
+        </div>
+        <div>
+          <img src="caso_1_Fyf_vs_f.png" alt="Espectro FFT Caso 1" class="article-img" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-ph">[ Fig. 6 · caso_1_Fyf_vs_f.png ]</div>
+        </div>
+      </div>
+      <figcaption class="article-caption">
+        <strong>Figura 5</strong> — Dilatación acústica en campo libre ($t=800$): dipolo aeroacústico. &nbsp;|&nbsp;
+        <strong>Figura 6</strong> — Densidad espectral de potencia: pico en $f_0 = 0{,}0492$.
+      </figcaption>
     </figure>
 
     <hr />
 
-    <!-- RESULTADOS CASO 2 -->
-    <h2>Resultados: Caso 2 (Confinamiento)</h2>
-    <p>Resultados obtenidos tras la introducción de la pared sólida inferior.</p>
+    <!-- ── RESULTADOS CASO 2 ── -->
+    <h2>Resultados — Caso 2: Confinamiento por Pared Inferior</h2>
+    <p>
+      La pared sólida inferior canaliza el flujo lateral e induce un efecto de atracción viscosa que reduce
+      la deformación asimétrica del chorro. El confinamiento <strong>incrementa la rigidez del bucle
+      aeroacústico</strong>, elevando la frecuencia y enriqueciendo los armónicos secundarios.
+    </p>
 
-    <figure class="article-figure">
-      <img src="dil_2_800.png" alt="Dilatación con confinamiento" class="article-img">
-      <figcaption class="article-caption">Figura 7 - Dilatación con confinamiento.</figcaption>
-    </figure>
-
-    <figure class="article-figure">
-      <img src="caso_2_Fyf_vs_f.png" alt="Espectro FFT" class="article-img">
-      <figcaption class="article-caption">Figura 8 - Espectro FFT $f_0 = 0.0533$.</figcaption>
-    </figure>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <div class="compare-card-label">Frecuencia fundamental</div>
+        <div class="compare-stat">f₀ = 0,0533</div>
+        <div class="compare-desc">St_W = 0,2132 · incremento del 8,3% respecto al Caso 1</div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-card-label">Efecto del confinamiento</div>
+        <div class="compare-stat">+8,3 %</div>
+        <div class="compare-desc">Mayor amplitud en armónicos secundarios — comportamiento no lineal más acentuado</div>
+      </div>
     </div>
 
+    <figure class="article-figure">
+      <div class="figures-grid">
+        <div>
+          <img src="dil_2_800.png" alt="Campo de dilatación acústica — Caso 2" class="article-img" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-ph">[ Fig. 7 · dil_2_800.png ]</div>
+        </div>
+        <div>
+          <img src="caso_2_Fyf_vs_f.png" alt="Espectro FFT Caso 2" class="article-img" loading="lazy"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="img-ph">[ Fig. 8 · caso_2_Fyf_vs_f.png ]</div>
+        </div>
+      </div>
+      <figcaption class="article-caption">
+        <strong>Figura 7</strong> — Dilatación acústica con pared confinante ($t=800$). &nbsp;|&nbsp;
+        <strong>Figura 8</strong> — Densidad espectral de potencia: pico desplazado a $f_0 = 0{,}0533$.
+      </figcaption>
+    </figure>
+
     <hr />
 
-    <!-- CONCLUSIONES Y COMPETENCIAS -->
+    <!-- ── CONCLUSIONES ── -->
     <h2>Conclusiones y Competencias Adquiridas</h2>
+
     <div class="highlight-box">
       <div class="highlight-icon">💡</div>
       <p class="highlight-text">
-        El esquema FR de alto orden demostró una excelente estabilidad para capturar fluctuaciones acústicas. Los números de Strouhal obtenidos ($St \approx 0,18 - 0,21$) concuerdan rigurosamente con los rangos experimentales clásicos de la literatura aeroacústica, validando la precisión de este solver sin costes experimentales físicos.
+        El esquema FR de alto orden demostró excelente estabilidad para capturar fluctuaciones acústicas
+        sin disipación artificial. Los <strong>números de Strouhal obtenidos ($St \approx 0{,}18 – 0{,}21$)</strong>
+        concuerdan con los rangos experimentales de la literatura aeroacústica, validando la precisión de PyFR
+        sin costes experimentales. El confinamiento queda demostrado como factor que <strong>rigidiza la
+        respuesta en frecuencia</strong> del instrumento en un 8,3%.
       </p>
     </div>
 
-    <h3>Perfil Profesional Tecnológico</h3>
+    <h3>Perfil tecnológico adquirido</h3>
     <div class="tags">
-      <span class="tag">CFD de Alto Orden (DG/FR)</span>
+      <span class="tag">CFD de Alto Orden (FR/DG)</span>
       <span class="tag">Solvers de Riemann (HLLC)</span>
-      <span class="tag">Computación HPC (Linux)</span>
-      <span class="tag">Soporte GPU (CUDA/OpenMP)</span>
-      <span class="tag">Mallado Pointwise Analítico</span>
-      <span class="tag">Análisis Espectral FFT (MATLAB)</span>
-      <span class="tag">Postprocesado Científico (ParaView)</span>
+      <span class="tag">DNS</span>
+      <span class="tag">HPC Linux</span>
+      <span class="tag">GPU Computing (CUDA/OpenMP)</span>
+      <span class="tag">Mallado Pointwise</span>
+      <span class="tag">Análisis espectral FFT (MATLAB)</span>
+      <span class="tag">Postprocesado científico (ParaView)</span>
+      <span class="tag">Aeroacústica computacional</span>
+    </div>
+
+    <div class="btn-group">
+      <a class="btn btn-primary" href="https://github.com/juanjesus-munoz/TFG-Aeroacustica-PyFR" target="_blank" rel="noopener">Ver código en GitHub</a>
+      <a class="btn btn-secondary" href="index.html#proyectos">← Volver a proyectos</a>
     </div>
 
   </div>
